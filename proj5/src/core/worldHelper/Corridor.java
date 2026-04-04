@@ -3,18 +3,21 @@ package core.worldHelper;
 import java.util.*;
 import java.util.List;
 
-import core.WorldGlobal;
+import core.Global;
 import core.entity.Edge;
 import core.entity.Point;
 import tileengine.TETile;
 import tileengine.Tileset;
 import utils.CalculateUtil;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import utils.WorldUtil;
+
+import static utils.WorldUtil.covertTile;
 
 public class Corridor {
 	public List<Edge> edgeList;
 	public WeightedQuickUnionUF unionUF;
-	private static final TETile[][] world = WorldGlobal.world;
+	private static final TETile[][] world = Global.world;
 
 	public Corridor() {
 		edgeList = new ArrayList<>();
@@ -25,21 +28,36 @@ public class Corridor {
 		int roomsSize = roomList.size();
 		generateMST(roomList, roomsSize);
 		for (Edge edge : edgeList) {
-			Point start = edge.getFrom().spawnRandomRoomTile();
-			Point end = edge.getTo().spawnRandomRoomTile();
-			int dx = end.x() > start.x() ? 1 : -1;
-			int dy = end.y() > start.y() ? 1 : -1;
-			int currentX = start.x();
-			int currentY = start.y();
-			while (currentX != end.x()) {
-				currentX += dx;
-				buildWallHorizontal(new Point(currentX, currentY));
-			}
-			while (currentY != end.y()) {
-				currentY += dy;
-				buildWallVertical(new Point(currentX, currentY));
+			for (Point point : generatorPath(edge.getFrom(), edge.getTo())) {
+				applyPathPointsToMap(point);
 			}
 		}
+	}
+
+	public List<Point> generatorPath(Room r1, Room r2) {
+		List<Point> path = new ArrayList<>();
+		Point start = r1.spawnRandomRoomTile();
+		Point end = r2.spawnRandomRoomTile();
+		int dx = end.x() > start.x() ? 1 : -1;
+		int dy = end.y() > start.y() ? 1 : -1;
+		int currentX = start.x();
+		int currentY = start.y();
+
+		while (currentX != end.x() || currentY != end.y()) {
+			if (currentX != end.x() && currentY != end.y()) {
+				if (Global.random.nextBoolean()) {
+					currentX += dx;
+				} else {
+					currentY += dy;
+				}
+			} else if (currentX != end.x()) {
+				currentX += dx;
+			} else {
+				currentY += dy;
+			}
+			path.add(new Point(currentX, currentY));
+		}
+		return path;
 	}
 
 	// 生成最小生成树,树存于edgeList
@@ -79,31 +97,17 @@ public class Corridor {
 			}
 		}
 	}
-	// 铺路方法分横铺和竖铺——对墙壁和地板作自动判断和处理
-	private void buildWallHorizontal(Point point) {
-		if (buildWallHelper(point)) {
-			int x = point.x();
-			int y = point.y();
-			world[x][y] = Tileset.FLOOR;
-			world[x][y+1] = Tileset.WALL;
-			world[x][y-1] = Tileset.WALL;
+	// 铺路方法----对墙壁和地板作自动判断和处理
+	private void applyPathPointsToMap(Point point) {
+		if (WorldUtil.isFloor(point)){
+			return;
+		}
+		covertTile(point, Tileset.FLOOR);
+		for (Point p : WorldUtil.getNeighbors(point)) {
+			if (WorldUtil.isNothing(p)) {
+				covertTile(p, Tileset.WALL);
+			}
 		}
 	}
-	private void buildWallVertical(Point point) {
-		if (buildWallHelper(point)) {
-			int x = point.x();
-			int y = point.y();
-			world[x][y] = Tileset.FLOOR;
-			world[x+1][y] = Tileset.WALL;
-			world[x-1][y] = Tileset.WALL;
-		}
-	}
-	private boolean buildWallHelper(Point point) {
-		if (WorldUtil.isWall(point)) {
-			world[point.x()][point.y()] = Tileset.FLOOR;
-		} else if (WorldUtil.isFloor(point)) {
-			return false;
-		}
-		return true;
-	}
+
 }

@@ -1,12 +1,11 @@
 package core.worldHelper;
 
-import core.WorldGlobal;
+import core.Global;
 import core.entity.Point;
 import tileengine.TETile;
 import tileengine.Tileset;
 
 import java.util.Objects;
-import java.util.Random;
 
 public class Room {
 	private int sourceX;
@@ -65,8 +64,8 @@ public class Room {
 //		world[passageX][passageY] = Tileset.FLOOR;
 //	}
 	public Point spawnRandomRoomTile() {
-		int x = WorldGlobal.random.nextInt(sourceX+1, sourceX+wide-1);
-		int y = WorldGlobal.random.nextInt(sourceY+1, sourceY+height-1);
+		int x = Global.random.nextInt(sourceX+1, sourceX+wide-1);
+		int y = Global.random.nextInt(sourceY+1, sourceY+height-1);
 		return new Point(x, y);
 	}
 

@@ -1,55 +1,65 @@
 package core;
 
-import core.worldHelper.Corridor;
-import core.worldHelper.Graph;
-import core.worldHelper.Room;
-import core.worldHelper.WorldUtil;
+import core.entity.Point;
+
+import utils.WorldUtil;
 import tileengine.TERenderer;
+import edu.princeton.cs.algs4.StdDraw;
 import tileengine.TETile;
 import tileengine.Tileset;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+
+import static core.Global.*;
+import static utils.WorldUtil.*;
 
 public class Main {
 
-    private static final int WIDTH = 95;
-    private static final int HEIGHT = 55;
-    private static final int SEED = 18548;
-    public static void main(String[] args) {
+    private static final int SEED = 4844;
+
+    private static TETile underTile;
+    private static Point current;
+
+    public static void main(String[] args) throws InterruptedException {
 
         // 初始化渲染器
         TERenderer ter = new TERenderer();
         ter.initialize(WIDTH, HEIGHT);
+
         // 初始化随机数生成器
         Random rng = new Random(SEED);
-        WorldGlobal.random = rng;
-        // 初始化世界
-        TETile[][] world = new TETile[WIDTH][HEIGHT];
-        WorldGlobal.world = world;
+        Global.random = rng;
 
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                world[i][j] = Tileset.NOTHING;
-            }
-        }
+        // 生成世界
+        World.generateWorld(WIDTH, HEIGHT, rng);
 
-        List<Room> roomList = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
-            boolean flag = false;
-            Room room = new Room(rng.nextInt(4, 86), rng.nextInt(4, 46),
-                    rng.nextInt(6, 10), rng.nextInt(6, 10));
-            for (Room otherRoom : roomList) {
-                if (room.isOverlaps(otherRoom)) flag = true;
-            }
-            if (flag) continue;
-            room.roomGenerator(world);
-            roomList.add(room);
-        }
-        Corridor corridor = new Corridor();
-        corridor.generator(roomList);
-
+        // 人物移动
+        Point source = roomList.getFirst().spawnRandomRoomTile();
+        current = new Point(source.x()+1, source.y()-1);
+        underTile = getTile(current);
+        move(0, 0);
         ter.renderFrame(world);
+        while (true) {
+            if (StdDraw.hasNextKeyTyped()) {
+                char c = StdDraw.nextKeyTyped();
+                if (c == 'w') { move(0, 1); }
+                if (c == 'a') { move(-1, 0);  }
+                if (c == 's') { move(0, -1); }
+                if (c == 'd') { move(1, 0);  }
+                ter.renderFrame(world);
+            }
+        }
+    }
+    public static void move(int dx, int dy) {
+
+        Point nextPoint = new Point(current.x() + dx, current.y() + dy);
+        if (WorldUtil.isWall(nextPoint)) {
+            return;
+        }
+        TETile nextTile = getTile(nextPoint);
+        covertTile(nextPoint, Tileset.AVATAR);
+        covertTile(current, underTile);
+        current = nextPoint;
+        underTile = nextTile;
     }
 }
