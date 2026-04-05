@@ -1,7 +1,7 @@
-package core;
+package core.world;
 
-import core.worldHelper.Corridor;
-import core.worldHelper.Room;
+import core.Global;
+import core.entity.Point;
 import tileengine.TETile;
 import tileengine.Tileset;
 

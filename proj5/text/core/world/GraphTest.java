@@ -1,10 +1,7 @@
-package core.worldHelper;
+package core.world;
 
 import core.entity.Point;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static com.google.common.truth.Truth.assertThat;
 

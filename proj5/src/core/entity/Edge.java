@@ -1,6 +1,6 @@
 package core.entity;
 
-import core.worldHelper.Room;
+import core.world.Room;
 
 import java.util.Objects;
 

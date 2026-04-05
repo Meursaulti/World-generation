@@ -84,6 +84,7 @@ public class TERenderer {
      */
     public void renderFrame(TETile[][] world) {
         StdDraw.clear(new Color(0, 0, 0));
+        resetFont();
         drawTiles(world);
         StdDraw.show();
     }

@@ -26,44 +26,44 @@ import java.awt.Color;
 public class Tileset {
 
     // 玩家 / 角色
-    public static final TETile AVATAR = new TETile('@', Color.white, Color.black, "you", 0);
+    public static final TETile AVATAR = new TETile('@', Color.white, Color.black, "你", 0);
 
     // 墙
     public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
-            "wall", 1);
+            "墙", 1);
 
     // 地板
-    public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black, "floor", 2);
+    public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black, "地板", 2);
 
     // 空（未使用 / 空白区域）
-    public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "nothing", 3);
+    public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "虚无", 3);
 
     // 草地
-    public static final TETile GRASS = new TETile('"', Color.green, Color.black, "grass", 4);
+    public static final TETile GRASS = new TETile('"', Color.green, Color.black, "草地", 4);
 
     // 水
-    public static final TETile WATER = new TETile('≈', Color.blue, Color.black, "water", 5);
+    public static final TETile WATER = new TETile('≈', Color.blue, Color.black, "水", 5);
 
     // 花
-    public static final TETile FLOWER = new TETile('❀', Color.magenta, Color.pink, "flower", 6);
+    public static final TETile FLOWER = new TETile('❀', Color.magenta, Color.pink, "花", 6);
 
     // 上锁的门
     public static final TETile LOCKED_DOOR = new TETile('█', Color.orange, Color.black,
-            "locked door", 7);
+            "上锁的门", 7);
 
     // 解锁的门
     public static final TETile UNLOCKED_DOOR = new TETile('▢', Color.orange, Color.black,
-            "unlocked door", 8);
+            "解锁的门", 8);
 
     // 沙地
-    public static final TETile SAND = new TETile('▒', Color.yellow, Color.black, "sand", 9);
+    public static final TETile SAND = new TETile('▒', Color.yellow, Color.black, "沙地", 9);
 
     // 山
-    public static final TETile MOUNTAIN = new TETile('▲', Color.gray, Color.black, "mountain", 10);
+    public static final TETile MOUNTAIN = new TETile('▲', Color.gray, Color.black, "山", 10);
 
     // 树
-    public static final TETile TREE = new TETile('♠', Color.green, Color.black, "tree", 11);
+    public static final TETile TREE = new TETile('♠', Color.green, Color.black, "树", 11);
 
-    // 单元格 / 格子（根据语境也可能表示“牢房”）
-    public static final TETile CELL = new TETile('█', Color.white, Color.black, "cell", 12);
+    // 单元格
+    public static final TETile CELL = new TETile('█', Color.white, Color.black, "单元格", 12);
 }

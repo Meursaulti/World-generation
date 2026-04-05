@@ -1,4 +1,4 @@
-package core.worldHelper;
+package core.world;
 
 import core.Global;
 import core.entity.Point;
@@ -68,7 +68,6 @@ public class Room {
 		int y = Global.random.nextInt(sourceY+1, sourceY+height-1);
 		return new Point(x, y);
 	}
-
 
 	public boolean isOverlaps(Room other) {
 		int otherSourceX = other.getSourceX();
