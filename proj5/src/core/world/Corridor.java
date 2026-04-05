@@ -12,7 +12,7 @@ import utils.CalculateUtil;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import utils.WorldUtil;
 
-import static utils.WorldUtil.covertTile;
+import static utils.WorldUtil.convertTile;
 
 public class Corridor {
 	public List<Edge> edgeList;
@@ -102,10 +102,10 @@ public class Corridor {
 		if (WorldUtil.isFloor(point)){
 			return;
 		}
-		covertTile(point, Tileset.FLOOR);
+		convertTile(point, Tileset.FLOOR);
 		for (Point p : WorldUtil.getNeighbors(point)) {
 			if (WorldUtil.isNothing(p)) {
-				covertTile(p, Tileset.WALL);
+				convertTile(p, Tileset.WALL);
 			}
 		}
 	}

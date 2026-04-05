@@ -4,7 +4,6 @@ import core.Global;
 import core.entity.Point;
 import core.world.Graph;
 import tileengine.TETile;
-import tileengine.Tileset;
 
 
 public class WorldUtil {
@@ -54,7 +53,7 @@ public class WorldUtil {
 		return world[point.x()][point.y()];
 	}
 
-	public static void covertTile(Point point, TETile tile) {
+	public static void convertTile(Point point, TETile tile) {
 		world[point.x()][point.y()] = tile;
 	}
 

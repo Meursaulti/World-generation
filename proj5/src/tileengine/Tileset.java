@@ -26,14 +26,15 @@ import java.awt.Color;
 public class Tileset {
 
     // 玩家 / 角色
-    public static final TETile AVATAR = new TETile('@', Color.white, Color.black, "你", 0);
+    public static final TETile AVATAR = new TETile('@', Color.white, Color.black, "你",
+            "src/static/tile/avatar.png" ,0);
 
     // 墙
     public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
-            "墙", 1);
+            "墙","src/static/tile/wall_1.PNG",  1);
 
     // 地板
-    public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black, "地板", 2);
+    public static final TETile FLOOR = new TETile('·', new Color(188,188,188), new Color(0x080313), "地板", 2);
 
     // 空（未使用 / 空白区域）
     public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "虚无", 3);

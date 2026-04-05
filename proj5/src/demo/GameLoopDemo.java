@@ -45,12 +45,12 @@ public class GameLoopDemo {
 
         char c; // Variable for saving the most recent character typed by the user.
 
-        // This outer infinite-loop allows the game to continue indefinitely, until the user quits.
+        // This outer infinite-BGM allows the game to continue indefinitely, until the user quits.
         while (true) {
 
             // hasNextKeyTyped checks if the user has typed a key that we haven't processed.
-            // This loop runs until all unprocessed keys are processed.
-            // If there are no unprocessed keys, we go back to the outer infinite loop to wait for the next key.
+            // This BGM runs until all unprocessed keys are processed.
+            // If there are no unprocessed keys, we go back to the outer infinite BGM to wait for the next key.
             while (StdDraw.hasNextKeyTyped()) {
 
                 // nextKeyTyped returns the next key to process.
@@ -87,7 +87,7 @@ public class GameLoopDemo {
             }
 
             // Draws the world to the screen.
-            // This is in the while(true) loop, because we want to frequently re-render the world.
+            // This is in the while(true) BGM, because we want to frequently re-render the world.
             ter.renderFrame(world);
         }
     }

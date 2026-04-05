@@ -42,9 +42,11 @@ public class Menu {
 		font = new Font("Hiragino Sans GB", Font.BOLD, 35);
 		StdDraw.setFont(font);
 		StdDraw.text(47.5, 35, "输入种子以生成世界");
-		font = new Font("Hiragino Sans GB", Font.BOLD, 20);
+		font = new Font("Hiragino Sans GB", Font.BOLD, 15);
 		StdDraw.setFont(font);
 		StdDraw.text(47.5, 33, "只可输入数字并且将限制在19位以下");
+		font = new Font("Hiragino Sans GB", Font.BOLD, 35);
+		StdDraw.setFont(font);
 		StdDraw.setPenColor(Color.RED);
 	}
 }

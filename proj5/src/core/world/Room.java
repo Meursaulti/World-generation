@@ -28,12 +28,16 @@ public class Room {
 	}
 
 	public void roomGenerator(TETile[][] world) {
+		roomGenerator(world, Tileset.FLOOR);
+	}
+
+	public void roomGenerator(TETile[][] world, TETile tile) {
 		int endX = sourceX + wide;
 		int endY = sourceY + height;
 		for (int i = sourceX; i < endX; i++) {
 			for (int j = sourceY; j < endY; j++) {
 				if (i > sourceX && i < endX - 1 && j > sourceY && j < endY - 1) {
-					world[i][j] = Tileset.FLOOR;
+					world[i][j] = tile;
 				} else world[i][j] = Tileset.WALL;
 			}
 		}

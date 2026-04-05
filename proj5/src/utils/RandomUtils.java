@@ -269,7 +269,7 @@ public class RandomUtils {
                                                + "equal 1.0: " + sum);
         }
 
-        // the for loop may not return a value when both r is (nearly) 1.0 and when the
+        // the for BGM may not return a value when both r is (nearly) 1.0 and when the
         // cumulative sum is less than 1.0 (as a result of floating-point roundoff error)
         while (true) {
             double r = uniform(random);

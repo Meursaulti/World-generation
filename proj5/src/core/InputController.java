@@ -3,17 +3,17 @@ package core;
 import core.interactivity.Hud;
 import core.interactivity.Menu;
 import core.entity.Point;
+import core.ldealFeatures.AudioPlayer;
 import core.world.World;
 import edu.princeton.cs.algs4.StdDraw;
 import tileengine.TETile;
 import tileengine.Tileset;
 import utils.FileUtils;
 
-import java.awt.*;
 import java.util.Objects;
 import java.util.Random;
 
-import static core.Global.seed;
+import static core.Global.*;
 import static utils.WorldUtil.*;
 
 public class InputController {
@@ -25,16 +25,19 @@ public class InputController {
 				char c = StdDraw.nextKeyTyped();
 
 				if (c == 'n' || c == 'N') {
+					AudioPlayer.play(CLICK_SOUND_FILE);
 					Menu.showSeedInput();
 					StdDraw.show();
 					seedManager();
 					break;
 				}
 				if (c == 'l' || c == 'L') {
+					AudioPlayer.play(ENTER_GAME_SOUND);
 					FileUtils.loading();
 					break;
 				}
 				if (c == 'q' || c == 'Q') {
+					AudioPlayer.play(CLICK_SOUND_FILE);
 					System.exit(0);
 				}
 
@@ -46,7 +49,7 @@ public class InputController {
 	public static void CharacterControllerDecorator(Point spawnPoint) {
 		World.generateWorld(Global.WIDTH, Global.HEIGHT, Global.random);
 		TETile underTile = getTile(spawnPoint);
-		covertTile(spawnPoint, Tileset.AVATAR);
+		convertTile(spawnPoint, Tileset.AVATAR);
 		Global.ter.renderFrame(Global.world);
 		characterController(spawnPoint, underTile);
 	}
@@ -55,7 +58,7 @@ public class InputController {
 		World.generateWorld(Global.WIDTH, Global.HEIGHT, Global.random);
 		Point spawnPoint = Global.roomList.getFirst().spawnRandomRoomTile();
 		TETile underTile = getTile(spawnPoint);
-		covertTile(spawnPoint, Tileset.AVATAR);
+		convertTile(spawnPoint, Tileset.AVATAR);
 		Global.ter.renderFrame(Global.world);
 		characterController(spawnPoint, underTile);
 	}
@@ -102,15 +105,16 @@ public class InputController {
 
 				if (isWall(nextPoint)) continue;
 
-				covertTile(current, underTile);
+				convertTile(current, underTile);
 
 				underTile = getTile(nextPoint);
 
 				current = nextPoint;
 
-				covertTile(nextPoint, Tileset.AVATAR);
+				convertTile(nextPoint, Tileset.AVATAR);
 				// 移动后重新渲染
 				Global.ter.renderFrame(Global.world);
+				lastTime = System.currentTimeMillis();
 			}
 			Point point = new Point((int) StdDraw.mouseX(), (int) StdDraw.mouseY());
 			long currentTime = System.currentTimeMillis();
@@ -129,7 +133,8 @@ public class InputController {
 		while (true) {
 			if (StdDraw.hasNextKeyTyped()) {
 				char c = StdDraw.nextKeyTyped();
-				if (c == 's' || c == 'S' || c == '\n') {
+				if ((c == 's' || c == 'S' || c == '\n') && !(stringBuilder.isEmpty())) {
+					AudioPlayer.play(ENTER_GAME_SOUND);
 					seed = Long.parseLong(stringBuilder.toString());
 					Global.random = new Random(seed);
 					CharacterControllerDecorator();
