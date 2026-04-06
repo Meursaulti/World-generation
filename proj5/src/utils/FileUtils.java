@@ -79,7 +79,7 @@ public class FileUtils {
 			    Global.seed;
         writeFile("safe.txt", contents);
     }
-    public static void loading() {
+    public static void loading(){
         String readline = readFile("safe.txt");
         String[] strings = readline.split(" ");
         int x = Integer.parseInt(strings[0]);

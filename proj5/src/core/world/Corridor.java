@@ -73,7 +73,7 @@ public class Corridor {
 				Room room = roomList.get(i);
 				Room targetRoom = roomList.get(j);
 				double dist = CalculateUtil.
-						calculateDistance(room.getSource(), targetRoom.getSource());
+						calculateEuclidean(room.getSource(), targetRoom.getSource());
 				allEdges.add(new Edge(room, targetRoom, dist));
 			}
 		}
@@ -102,12 +102,12 @@ public class Corridor {
 		if (WorldUtil.isFloor(point)){
 			return;
 		}
-		convertTile(point, Tileset.FLOOR);
-		for (Point p : WorldUtil.getNeighbors(point)) {
-			if (WorldUtil.isNothing(p)) {
-				convertTile(p, Tileset.WALL);
+		for (Point neighborPoint : WorldUtil.getNeighbors(point)) {
+			if (WorldUtil.isNothing(neighborPoint)) {
+				convertTile(neighborPoint, Tileset.WALL);
 			}
 		}
+		convertTile(point, Tileset.FLOOR);
 	}
 
 }

@@ -12,8 +12,8 @@ public class WorldUtil {
 
 	public static Graph TileLoader(int wide, int length) {
 		Graph graph = new Graph();
-		 for (int x = 5; x < wide; x++) {
-			 for (int y = 5; y < length; y++) {
+		 for (int x = 4; x < wide; x++) {
+			 for (int y = 4; y < length; y++) {
 				 Point current = new Point(x, y);
 				 if (y != length-1) {
 					 Point top = new Point(x, y+1);
@@ -31,10 +31,18 @@ public class WorldUtil {
 		return world[point.x()][point.y()].id() == 1;
 	}
 	public static boolean isFloor(Point point) {
-		return world[point.x()][point.y()].id() == 2;
+		int id = world[point.x()][point.y()].id();
+		return id == 2;
+	}
+	public static boolean isFloorPlus(Point point) {
+		int id = world[point.x()][point.y()].id();
+		return id == 2 || id >= 13 && id <= 17;
 	}
 	public static boolean isNothing(Point point) {
 		return world[point.x()][point.y()].id() == 3;
+	}
+	public static boolean isAvatar(Point point) {
+		return world[point.x()][point.y()].id() == 0;
 	}
 
 	public static Point[] getNeighbors(Point point) {

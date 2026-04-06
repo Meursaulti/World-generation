@@ -1,5 +1,6 @@
 package core;
 
+import core.world.Graph;
 import core.world.Room;
 import tileengine.TERenderer;
 import tileengine.TETile;
@@ -18,5 +19,6 @@ public class Global {
 	public static Random random =null;
 	public static TETile[][] world = null;
 	public static List<Room> roomList = null;
+	public static Graph graph = null;
 	public static  long seed = 0;
 }

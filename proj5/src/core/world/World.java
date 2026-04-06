@@ -2,8 +2,10 @@ package core.world;
 
 import core.Global;
 import core.entity.Point;
+import core.ldealFeatures.Light;
 import tileengine.TETile;
 import tileengine.Tileset;
+import utils.WorldUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +40,9 @@ public class World {
 		Global.roomList = roomList;
 		Corridor corridor = new Corridor();
 		corridor.generator(roomList);
+		Point point = roomList.removeFirst().spawnRandomRoomTile();
+		WorldUtil.convertTile(point, Tileset.LIGHT);
+		Light.propagateLightFromTile(point);
+		Global.graph = WorldUtil.TileLoader(86, 46);
 	}
 }

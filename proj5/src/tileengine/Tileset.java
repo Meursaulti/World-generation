@@ -27,14 +27,14 @@ public class Tileset {
 
     // 玩家 / 角色
     public static final TETile AVATAR = new TETile('@', Color.white, Color.black, "你",
-            "src/static/tile/avatar.png" ,0);
+            "src/static/tile/avatar.png", 0);
 
     // 墙
     public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
-            "墙","src/static/tile/wall_1.PNG",  1);
+            "墙", "src/static/tile/wall_1.PNG", 1);
 
     // 地板
-    public static final TETile FLOOR = new TETile('·', new Color(188,188,188), new Color(0x080313), "地板", 2);
+    public static final TETile FLOOR = new TETile('·', new Color(188, 188, 188), new Color(0x010107), "地板", 2);
 
     // 空（未使用 / 空白区域）
     public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "虚无", 3);
@@ -67,4 +67,23 @@ public class Tileset {
 
     // 单元格
     public static final TETile CELL = new TETile('█', Color.white, Color.black, "单元格", 12);
+
+    // 灯源（中心，明显偏蓝）
+    public static final TETile LIGHT = new TETile('◆', new Color(200, 210, 230), new Color(0x141838), "灯", 13);
+
+    // 一级灯照（明亮冷蓝）
+    public static final TETile LIGHT_ZONE_1 = new TETile('·', new Color(188, 188, 188), new Color(0x111532), "灯", 14);
+
+    // 二级灯照（中等蓝调）
+    public static final TETile LIGHT_ZONE_2 = new TETile('·', new Color(188, 188, 188), new Color(0x0E122C), "灯", 15);
+
+    // 三级灯照（蓝紫过渡）
+    public static final TETile LIGHT_ZONE_3 = new TETile('·', new Color(188, 188, 188), new Color(0x0B0F26), "灯", 16);
+
+    // 四级灯照（深紫，贴近地板 #080313）
+    public static final TETile LIGHT_ZONE_4 = new TETile('·', new Color(188, 188, 188), new Color(0x080A20), "灯", 17);
+
+    // 怪物
+    public static final TETile MONSTER = new TETile('@', Color.white, Color.black, "怪物!!!",
+            "src/static/tile/monster.png", 0);
 }

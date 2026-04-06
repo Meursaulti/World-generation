@@ -49,4 +49,13 @@ public class Menu {
 		StdDraw.setFont(font);
 		StdDraw.setPenColor(Color.RED);
 	}
+	public static void end() {
+		StdDraw.clear(Color.black);
+		StdDraw.setPenColor(StdDraw.WHITE);
+		// 标题字体
+		Font font = new Font("Hiragino Sans GB", Font.BOLD, 50);
+		StdDraw.setFont(font);
+		StdDraw.text(47.5, 50, "你他妈输了！");
+		StdDraw.show();
+	}
 }

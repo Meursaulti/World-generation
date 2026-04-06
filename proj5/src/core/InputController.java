@@ -4,6 +4,8 @@ import core.interactivity.Hud;
 import core.interactivity.Menu;
 import core.entity.Point;
 import core.ldealFeatures.AudioPlayer;
+import core.ldealFeatures.Light;
+import core.ldealFeatures.Monster;
 import core.world.World;
 import edu.princeton.cs.algs4.StdDraw;
 import tileengine.TETile;
@@ -70,6 +72,8 @@ public class InputController {
 		Point lastPoint = null;
 		long lastTime = 0;
 		int count = 0;
+		// 生成怪物
+		Monster monster = new Monster();
 		while (true) {
 
 			int x = current.x();
@@ -112,10 +116,13 @@ public class InputController {
 				current = nextPoint;
 
 				convertTile(nextPoint, Tileset.AVATAR);
+
+				Light.propagateLightFromTile(nextPoint);
 				// 移动后重新渲染
 				Global.ter.renderFrame(Global.world);
 				lastTime = System.currentTimeMillis();
 			}
+			//HUD
 			Point point = new Point((int) StdDraw.mouseX(), (int) StdDraw.mouseY());
 			long currentTime = System.currentTimeMillis();
 			if (!Objects.equals(lastPoint, point)) {
@@ -126,6 +133,7 @@ public class InputController {
 				lastTime = currentTime;
 				Hud.tooltip(point);
 			}
+			monster.action(current);
 		}
 	}
 	public static void seedManager() {
