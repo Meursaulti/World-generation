@@ -1,9 +1,13 @@
 package tileengine;
 
+import core.entity.Point;
 import edu.princeton.cs.algs4.StdDraw;
+import utils.WorldUtil;
 
 import java.awt.Color;
 import java.awt.Font;
+
+import static utils.WorldUtil.convertTile;
 
 /**
  * Utility class for rendering tiles. You do not need to modify this file. You're welcome
@@ -84,6 +88,7 @@ public class TERenderer {
      */
     public void renderFrame(TETile[][] world) {
         StdDraw.clear(new Color(0, 0, 0));
+        resetFont();
         drawTiles(world);
         StdDraw.show();
     }
@@ -105,9 +110,8 @@ public class TERenderer {
             }
         }
     }
-
     /**
-     * Resets the font to default settings. You should call this method before drawing any tiles
+     * Resets the setFont to default settings. You should call this method before drawing any tiles
      * if you changed the pen settings.
      */
     public void resetFont() {
