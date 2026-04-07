@@ -111,7 +111,7 @@ public class TERenderer {
         }
     }
     /**
-     * Resets the font to default settings. You should call this method before drawing any tiles
+     * Resets the setFont to default settings. You should call this method before drawing any tiles
      * if you changed the pen settings.
      */
     public void resetFont() {

@@ -3,7 +3,7 @@ package core.world;
 import core.entity.Point;
 
 import java.util.*;
-
+// 图其实没用上但还是不删了以后或许用的上
 public class Graph {
 	private Map<Point, Set<Point>> adjacency;
 	private int edgeCount;

@@ -2,7 +2,6 @@ package core.ldealFeatures;
 
 import core.Global;
 import core.entity.Point;
-import core.interactivity.Menu;
 import edu.princeton.cs.algs4.StdDraw;
 import tileengine.TETile;
 import tileengine.Tileset;
@@ -16,12 +15,11 @@ public class Monster {
 	private Point lastTarget;
 	private TETile underTile;
 	private Map<Point, Point> edgeTo;
-	private final List<Point> forwardPath;
+	private final Stack<Point> forwardPath;
 	private long lastTime;
 
 	public Monster() {
-		Point current = Global.roomList.removeLast().spawnRandomRoomTile();
-		this(current);
+		this(Global.roomList.removeLast().spawnRandomRoomTile());
 	}
 
 	public Monster(Point current) {
@@ -29,7 +27,7 @@ public class Monster {
 		lastTarget = null;
 		underTile = WorldUtil.getTile(current);
 		edgeTo = new HashMap<>();
-		forwardPath = new ArrayList<>();
+		forwardPath = new Stack<>();
 		lastTime = System.currentTimeMillis();
 		WorldUtil.convertTile(current, Tileset.MONSTER);
 	}
@@ -43,34 +41,37 @@ public class Monster {
 		}
 	}
 	private void move(Point target) {
-		if (Objects.equals(current, target)) {
-			Menu.end();
-		}
-		// 如果玩家与上一步位置不同即更新路径
-		if (!Objects.equals(target, lastTarget)) {
+
+		if (!Objects.equals(lastTarget, target)) {
 			edgeTo = CalculateUtil.calculateCompleteShortestPath(current, target);
+			if (edgeTo == null) return;
 			generatePath(target);
 			lastTarget = target;
 		}
-		Point nextStep = getNextStep();
-		// 将当前点的瓦块换回, 再记录下一步的瓦块，再将玩家更新至下一步
+
+		Point nextPoint = forwardPath.pop();
+
 		WorldUtil.convertTile(current, underTile);
-		underTile = WorldUtil.getTile(nextStep);
-		WorldUtil.convertTile(nextStep, Tileset.MONSTER);
-		current = nextStep;
+		underTile = WorldUtil.getTile(nextPoint);
+		WorldUtil.convertTile(nextPoint, Tileset.MONSTER);
+
+		current = nextPoint;
 	}
 
-	private Point getNextStep() {
-		return forwardPath.removeFirst();
+	public boolean isEnd(Point target) {
+		return Objects.equals(current, target);
 	}
 
 	private void generatePath(Point target) {
+		// 清空旧路径
 		forwardPath.clear();
-		Point lastStep = edgeTo.get(target);
-		forwardPath.addFirst(lastStep);
-		while (edgeTo.get(lastStep) != current) {
-			lastStep = edgeTo.get(lastStep);
-			forwardPath.addFirst(lastStep);
+
+		Point currentPoint = target;
+		forwardPath.push(target);
+
+		while (!Objects.equals(edgeTo.get(currentPoint), current)) {
+			currentPoint = edgeTo.get(currentPoint);
+			forwardPath.push(currentPoint);
 		}
 	}
 }

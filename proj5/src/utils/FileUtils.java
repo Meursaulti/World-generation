@@ -82,11 +82,14 @@ public class FileUtils {
     public static void loading(){
         String readline = readFile("safe.txt");
         String[] strings = readline.split(" ");
+
         int x = Integer.parseInt(strings[0]);
         int y = Integer.parseInt(strings[1]);
         long seed = Long.parseLong(strings[2]);
+
         Global.random = new Random(seed);
         Global.seed = seed;
+
         InputController.CharacterControllerDecorator(new Point(x, y));
     }
 }

@@ -5,8 +5,9 @@ import core.entity.Point;
 import tileengine.TETile;
 import tileengine.Tileset;
 
-import java.util.ArrayList;
 import java.util.Objects;
+
+import static core.Global.random;
 
 public class Room {
 	private int sourceX;
@@ -16,14 +17,14 @@ public class Room {
 	private int passageX;
 	private int passageY;
 
-	public Room(int sourceY, int sourceX) {
-		this.sourceX = sourceX;
-		this.sourceY = sourceY;
+	public Room(Point source) {
+		this.sourceX = source.x();
+		this.sourceY = source.y();
 	}
 
-	public Room(int x, int y, int wide, int height) {
-		sourceX = x;
-		sourceY = y;
+	public Room(Point source, int wide, int height) {
+		this.sourceX = source.x();
+		this.sourceY = source.y();
 		this.wide = wide;
 		this.height = height;
 	}
@@ -37,43 +38,46 @@ public class Room {
 		int endY = sourceY + height;
 		for (int i = sourceX; i < endX; i++) {
 			for (int j = sourceY; j < endY; j++) {
+				// 房间内部填充地板
 				if (i > sourceX && i < endX - 1 && j > sourceY && j < endY - 1) {
 					world[i][j] = tile;
 				} else world[i][j] = Tileset.WALL;
 			}
 		}
-		if (Global.random.nextBoolean()) {
+		// 随机添加灯源
+		if (random.nextBoolean()) {
 			Global.lightList.add(spawnRandomRoomTile());
 		}
 	}
 
-//	private void generateArchway(TETile[][] world, Random random) {
-//		int endX = sourceX + wide - 1;
-//		int endY = sourceY + height - 1;
-//		int side = random.nextInt(4); // 0:下 1:上 2:左 3:右
-//		switch (side) {
-//			case 0: // 下边
-//				passageX = random.nextInt(sourceX + 1, endX);
-//				passageY = sourceY;
-//				break;
-//			case 1: // 上边
-//				passageX = random.nextInt(sourceX + 1, endX);
-//				passageY = endY;
-//				break;
-//			case 2: // 左边
-//				passageX = sourceX;
-//				passageY = random.nextInt(sourceY + 1, endY);
-//				break;
-//			case 3: // 右边
-//				passageX = endX;
-//				passageY = random.nextInt(sourceY + 1, endY);
-//				break;
-//		}
-//		world[passageX][passageY] = Tileset.FLOOR;
-//	}
+	private void generateArchway(TETile[][] world) {
+		int endX = sourceX + wide - 1;
+		int endY = sourceY + height - 1;
+		int side = random.nextInt(4); // 0:下 1:上 2:左 3:右
+		switch (side) {
+			case 0: // 下边
+				passageX = random.nextInt(sourceX + 1, endX);
+				passageY = sourceY;
+				break;
+			case 1: // 上边
+				passageX = random.nextInt(sourceX + 1, endX);
+				passageY = endY;
+				break;
+			case 2: // 左边
+				passageX = sourceX;
+				passageY = random.nextInt(sourceY + 1, endY);
+				break;
+			case 3: // 右边
+				passageX = endX;
+				passageY = random.nextInt(sourceY + 1, endY);
+				break;
+		}
+		world[passageX][passageY] = Tileset.FLOOR;
+	}
+
 	public Point spawnRandomRoomTile() {
-		int x = Global.random.nextInt(sourceX+1, sourceX+wide-1);
-		int y = Global.random.nextInt(sourceY+1, sourceY+height-1);
+		int x = random.nextInt(sourceX+1, sourceX+wide-1);
+		int y = random.nextInt(sourceY+1, sourceY+height-1);
 		return new Point(x, y);
 	}
 

@@ -27,20 +27,25 @@ public class WorldUtil {
 		 }
 		 return graph;
 	}
+
 	public static boolean isWall(Point point) {
 		return world[point.x()][point.y()].id() == 1;
 	}
+
 	public static boolean isFloor(Point point) {
 		int id = world[point.x()][point.y()].id();
 		return id == 2;
 	}
+
 	public static boolean isFloorPlus(Point point) {
 		int id = world[point.x()][point.y()].id();
 		return id == 2 || id >= 13 && id <= 17;
 	}
+
 	public static boolean isNothing(Point point) {
 		return world[point.x()][point.y()].id() == 3;
 	}
+
 	public static boolean isAvatar(Point point) {
 		return world[point.x()][point.y()].id() == 0;
 	}

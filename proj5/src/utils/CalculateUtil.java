@@ -1,9 +1,7 @@
 package utils;
 
-import core.Global;
 import core.entity.Node;
 import core.entity.Point;
-import core.world.Graph;
 
 import java.util.*;
 
@@ -39,6 +37,9 @@ public class CalculateUtil {
 	 * @return A*算法取起点和目标点算出最短路径并返回所有记载的路径
 	 */
 	public static Map<Point, Point> calculateCompleteShortestPath(Point start, Point target) {
+		if (Objects.equals(start, target)) {
+			return null;
+		}
 		// 设定F为当前实际前驱距离加当前点对于目标的预估距离之和
 		PriorityQueue<Node> minHeap = new PriorityQueue<>();
 		Map<Point, Integer> distTo = new HashMap<>();
@@ -63,6 +64,7 @@ public class CalculateUtil {
 			closed.add(currentPoint);
 			// 如果目标节点被弹出即结束
 			if (Objects.equals(currentPoint, target)) break;
+
 
 			for (Point neighborPoint : WorldUtil.getNeighbors(currentPoint)) {
 

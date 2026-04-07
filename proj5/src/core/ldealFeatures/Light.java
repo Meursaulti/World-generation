@@ -1,12 +1,8 @@
 package core.ldealFeatures;
 
-import core.Global;
 import core.entity.Point;
-import core.world.Graph;
-import core.world.Room;
 import tileengine.TETile;
 import tileengine.Tileset;
-import utils.CalculateUtil;
 import utils.WorldUtil;
 
 import java.util.*;
@@ -28,13 +24,16 @@ public class Light {
 	}
 
 	private static boolean updateTileLightRadius(Point lightZone, List<Point> lightZoneList) {
+
 		Point startPoint = new Point(lightZone.x() - 1, lightZone.y() - 1);
 		Point endPoint = new Point(lightZone.x() + 1, lightZone.y() + 1);
 		boolean isNull = false;
 
 		for (int x = startPoint.x(); x <= endPoint.x(); x++) {
 			for (int y = startPoint.y(); y <= endPoint.y(); y++) {
+
 				Point current = new Point(x, y);
+
 				if (WorldUtil.isFloor(current)) {
 					TETile tile = getLowerLightZone(lightZone);
 					if (tile == null) {
