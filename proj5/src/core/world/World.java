@@ -40,9 +40,9 @@ public class World {
 		Global.roomList = roomList;
 		Corridor corridor = new Corridor();
 		corridor.generator(roomList);
-		Point point = roomList.removeFirst().spawnRandomRoomTile();
-		WorldUtil.convertTile(point, Tileset.LIGHT);
-		Light.propagateLightFromTile(point);
-		Global.graph = WorldUtil.TileLoader(86, 46);
+
+		for (Point light : Global.lightList) {
+			Light.propagateLightFromTile(light);
+		}
 	}
 }

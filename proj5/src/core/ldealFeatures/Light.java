@@ -17,6 +17,7 @@ public class Light {
 	 * 从指定瓦片位置开始，使用 BFS 向外传播光照效果
 	 */
 	public static void propagateLightFromTile(Point light) {
+		WorldUtil.convertTile(light, Tileset.LIGHT);
 		List<Point> lightZone = new LinkedList<>();
 		updateTileLightRadius(light, lightZone);
 		while (!lightZone.isEmpty()) {

@@ -31,8 +31,11 @@ public class Graph {
 	}
 
 	public Iterable<Point> adj(Point vertex) {
-		return adjacency.get(vertex);
-	}
+			if (!adjacency.containsKey(vertex)) {
+				throw new RuntimeException("Vertex not in graph: " + vertex);
+			}
+			return adjacency.get(vertex);
+		}
 
 	public Iterable<Point> vertices() {
 		return adjacency.keySet();

@@ -3,6 +3,7 @@ package core.ldealFeatures;
 import core.Global;
 import core.entity.Point;
 import core.interactivity.Menu;
+import edu.princeton.cs.algs4.StdDraw;
 import tileengine.TETile;
 import tileengine.Tileset;
 import utils.CalculateUtil;
@@ -35,9 +36,10 @@ public class Monster {
 
 	public void action(Point target) {
 		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastTime > 500) {
+		if (currentTime - lastTime > 700) {
 			move(target);
 			lastTime = currentTime;
+			StdDraw.show();
 		}
 	}
 	private void move(Point target) {
@@ -69,6 +71,6 @@ public class Monster {
 		while (edgeTo.get(lastStep) != current) {
 			lastStep = edgeTo.get(lastStep);
 			forwardPath.addFirst(lastStep);
-			}
 		}
+	}
 }

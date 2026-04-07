@@ -5,6 +5,7 @@ import core.entity.Point;
 import tileengine.TETile;
 import tileengine.Tileset;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Room {
@@ -40,6 +41,9 @@ public class Room {
 					world[i][j] = tile;
 				} else world[i][j] = Tileset.WALL;
 			}
+		}
+		if (Global.random.nextBoolean()) {
+			Global.lightList.add(spawnRandomRoomTile());
 		}
 	}
 

@@ -1,10 +1,12 @@
 package core;
 
+import core.entity.Point;
 import core.world.Graph;
 import core.world.Room;
 import tileengine.TERenderer;
 import tileengine.TETile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,6 +21,6 @@ public class Global {
 	public static Random random =null;
 	public static TETile[][] world = null;
 	public static List<Room> roomList = null;
-	public static Graph graph = null;
+	public static List<Point> lightList = new ArrayList<>();
 	public static  long seed = 0;
 }

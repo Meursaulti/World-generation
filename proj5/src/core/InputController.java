@@ -19,6 +19,7 @@ import static core.Global.*;
 import static utils.WorldUtil.*;
 
 public class InputController {
+	private static Monster monster;
 
 	// 总控台
 	public static void menuController() {
@@ -50,6 +51,7 @@ public class InputController {
 	// 装饰器提供出生点选择的功能
 	public static void CharacterControllerDecorator(Point spawnPoint) {
 		World.generateWorld(Global.WIDTH, Global.HEIGHT, Global.random);
+		monster = new Monster();
 		TETile underTile = getTile(spawnPoint);
 		convertTile(spawnPoint, Tileset.AVATAR);
 		Global.ter.renderFrame(Global.world);
@@ -58,6 +60,7 @@ public class InputController {
 
 	public static void CharacterControllerDecorator() {
 		World.generateWorld(Global.WIDTH, Global.HEIGHT, Global.random);
+		monster = new Monster();
 		Point spawnPoint = Global.roomList.getFirst().spawnRandomRoomTile();
 		TETile underTile = getTile(spawnPoint);
 		convertTile(spawnPoint, Tileset.AVATAR);
@@ -72,8 +75,6 @@ public class InputController {
 		Point lastPoint = null;
 		long lastTime = 0;
 		int count = 0;
-		// 生成怪物
-		Monster monster = new Monster();
 		while (true) {
 
 			int x = current.x();
@@ -117,7 +118,6 @@ public class InputController {
 
 				convertTile(nextPoint, Tileset.AVATAR);
 
-				Light.propagateLightFromTile(nextPoint);
 				// 移动后重新渲染
 				Global.ter.renderFrame(Global.world);
 				lastTime = System.currentTimeMillis();

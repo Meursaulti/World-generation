@@ -109,5 +109,4 @@ public class Corridor {
 		}
 		convertTile(point, Tileset.FLOOR);
 	}
-
 }
