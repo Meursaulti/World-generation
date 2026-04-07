@@ -49,6 +49,8 @@ public class Monster {
 			lastTarget = target;
 		}
 
+		if (forwardPath.isEmpty()) throw new RuntimeException("出现异常，不知名原因栈为空");
+
 		Point nextPoint = forwardPath.pop();
 
 		WorldUtil.convertTile(current, underTile);
